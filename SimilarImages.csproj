@@ -1,0 +1,190 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="packages\OpenCvSharp3-AnyCPU.3.0.0.20150919\build\OpenCvSharp3-AnyCPU.props" Condition="Exists('packages\OpenCvSharp3-AnyCPU.3.0.0.20150919\build\OpenCvSharp3-AnyCPU.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProjectGuid>{C3E873D8-B293-4CD6-AB22-5043CA73DC31}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <NoStandardLibraries>false</NoStandardLibraries>
+    <AssemblyName>TestImageHash</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <NuGetPackageImportStamp>cc76e430</NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RootNamespace>SimilarImage</RootNamespace>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>Images.ImageHash</StartupObject>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="OpenCvSharp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6adad1e807fea099, processorArchitecture=MSIL">
+      <HintPath>packages\OpenCvSharp3-AnyCPU.3.0.0.20150919\lib\net40\OpenCvSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="OpenCvSharp.Blob, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6adad1e807fea099, processorArchitecture=MSIL">
+      <HintPath>packages\OpenCvSharp3-AnyCPU.3.0.0.20150919\lib\net40\OpenCvSharp.Blob.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="OpenCvSharp.Extensions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6adad1e807fea099, processorArchitecture=MSIL">
+      <HintPath>packages\OpenCvSharp3-AnyCPU.3.0.0.20150919\lib\net40\OpenCvSharp.Extensions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="OpenCvSharp.UserInterface, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6adad1e807fea099, processorArchitecture=MSIL">
+      <HintPath>packages\OpenCvSharp3-AnyCPU.3.0.0.20150919\lib\net40\OpenCvSharp.UserInterface.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Compare2Images\app.config" />
+    <None Include="Compare2Images\packages.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Compare2Images\Compare2Images.cs" />
+    <Compile Include="Compare2Images\Compare2ImagesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Compare2Images\Compare2ImagesForm.Designer.cs">
+      <DependentUpon>Compare2ImagesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FindSimilarImage.Cmd\FindSimilarImages.Cmd.cs" />
+    <Compile Include="Library\CommonUtils\Options.cs" />
+    <Compile Include="Library\Image\DataBinding\SimilarImage.cs" />
+    <Compile Include="Library\Image\IImageIndex.cs" />
+    <Compile Include="Library\Image\ImageHash\ImageColorHash.cs" />
+    <Compile Include="Library\Image\ColorExtract.cs" />
+    <Compile Include="Library\Image\ImageIndex.cs" />
+    <Compile Include="Library\Image\ImageIndexMulti.cs" />
+    <Compile Include="Library\Image\ImageHash\ImageMD5Hash.cs" />
+    <Compile Include="Library\DataStructure\BKTree.cs" />
+    <Compile Include="Library\DataStructure\BKTreeImage.cs" />
+    <Compile Include="Library\CommonUtils\BinaryFile.cs" />
+    <Compile Include="Library\CommonUtils\BitCounter.cs" />
+    <Compile Include="Library\CommonUtils\ColorUtils.cs" />
+    <Compile Include="Library\CommonUtils\DctMethods.cs" />
+    <Compile Include="Library\CommonUtils\DiscreteCosineTransform.cs" />
+    <Compile Include="Library\CommonUtils\ImageUtils.cs" />
+    <Compile Include="Library\CommonUtils\MathUtils.cs" />
+    <Compile Include="Library\CommonUtils\StringSplitter.cs" />
+    <Compile Include="Library\CommonUtils\StringUtils.cs" />
+    <Compile Include="Library\Image\ImageHash\ImageAverageHash.cs" />
+    <Compile Include="Library\Image\ImageHash\ImageBlockHash.cs" />
+    <Compile Include="Library\Image\ImageSimilarity.cs" />
+    <Compile Include="Library\Image\ImageHash\ImageDifferenceHash.cs" />
+    <Compile Include="Library\Image\ImageHash.cs" />
+    <Compile Include="Library\Image\ImageHistogram.cs" />
+    <Compile Include="Library\Image\ImageHash\ImagePHash.cs" />
+    <Compile Include="Library\Image\ImageHash\ImageHistogramHash.cs" />
+    <Compile Include="Library\Image\ImageHash\SSIM.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Test\TestAverageHash.cs" />
+    <Compile Include="Test\TestBKTree.cs" />
+    <Compile Include="Test\TestBKTreeImages.cs" />
+    <Compile Include="Test\TestBlockHash.cs" />
+    <Compile Include="Test\TestColorExtract.cs" />
+    <Compile Include="Test\TestColorHash.cs" />
+    <Compile Include="Test\TestImageSimilarity.cs" />
+    <Compile Include="Test\TestDifferenceHash.cs" />
+    <Compile Include="Test\TestHistogramHash.cs" />
+    <Compile Include="Test\TestImageUtils.cs" />
+    <Compile Include="Test\TestIndex.cs" />
+    <Compile Include="Test\TestIndexMulti.cs" />
+    <Compile Include="Test\TestMathUtils.cs" />
+    <Compile Include="Test\TestMD5Hash.cs" />
+    <Compile Include="Test\TestPHash.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Compare2Images\Compare2ImagesForm.resx">
+      <DependentUpon>Compare2ImagesForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="FindSimilarImage\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Test\images\220px-Odd-eyed_cat_by_ihasb33r-2.gif" />
+    <Content Include="Test\images\220px-Odd-eyed_cat_by_ihasb33r.jpg" />
+    <Content Include="Test\images\another_koala.jpg" />
+    <Content Include="Test\images\CorruptImage.jpg" />
+    <Content Include="Test\images\koala1.gray.jpg" />
+    <Content Include="Test\images\koala1.jpg" />
+    <Content Include="Test\images\koala2.jpg" />
+    <Content Include="Test\images\lena.jpg" />
+    <Content Include="Test\images\lena.smaller.jpg" />
+    <Content Include="Test\images\Symcamera1.jpg" />
+    <Content Include="Test\images\wrong.txt.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
+  <ProjectExtensions>
+    <VisualStudio AllowExistingFolder="true" />
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('packages\OpenCvSharp3-AnyCPU.3.0.0.20150919\build\OpenCvSharp3-AnyCPU.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\OpenCvSharp3-AnyCPU.3.0.0.20150919\build\OpenCvSharp3-AnyCPU.props'))" />
+  </Target>
+</Project>
