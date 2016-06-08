@@ -1,0 +1,382 @@
+﻿<Window x:Class="FindSimilarImages.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Find Similar Images" Height="480" Width="680">
+
+    <!--
+     Keyboard Shortcut
+    -->
+    <Window.Resources>
+        <RoutedUICommand x:Key="kb_folder" Text="image folder" />
+        <RoutedUICommand x:Key="kb_image" Text="image of interest" />
+        <RoutedUICommand x:Key="kb_search" Text="search" />
+        <RoutedUICommand x:Key="kb_save" Text="save images" />
+        <RoutedUICommand x:Key="kb_next" Text="next page" />
+        <RoutedUICommand x:Key="kb_previous" Text="prev page" />
+
+        <SolidColorBrush x:Key="image_border" Color="DarkSlateBlue" />
+    </Window.Resources>
+
+    <Window.CommandBindings>
+        <CommandBinding Command="{StaticResource kb_folder}"
+                    Executed="Window_KeyboardShortcut_folder" />
+        <CommandBinding Command="{StaticResource kb_image}"
+                    Executed="KeyboardShortcut_Image" />
+        <CommandBinding Command="{StaticResource kb_search}"
+                    Executed="KeyboardShortcut_Search" />
+        <CommandBinding Command="{StaticResource kb_save}"
+                    Executed="KeyboardShortcut_Save" />
+        <CommandBinding Command="{StaticResource kb_next}"
+                    Executed="KeyboardShortcut_Next" />
+        <CommandBinding Command="{StaticResource kb_previous}"
+                    Executed="KeyboardShortcut_Previous" />
+    </Window.CommandBindings>
+
+    <Window.InputBindings>
+        <KeyBinding Key="F" Modifiers="Alt" Command="{StaticResource kb_folder}" />
+        <KeyBinding Key="I" Modifiers="Alt" Command="{StaticResource kb_image}" />
+        <KeyBinding Key="S" Modifiers="Alt" Command="{StaticResource kb_search}" />
+        <KeyBinding Key="Enter" Modifiers="" Command="{StaticResource kb_search}" />
+        <KeyBinding Key="S" Modifiers="Control" Command="{StaticResource kb_save}" />
+        <KeyBinding Key="Right" Modifiers="Alt" Command="{StaticResource kb_next}" />
+        <KeyBinding Key="Left" Modifiers="Alt" Command="{StaticResource kb_previous}" />
+    </Window.InputBindings>
+
+    <!--
+     Main window
+    -->
+    <Grid  Background="White">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="1*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!--
+           Image of interest & image folder
+        -->
+        <Grid Grid.Row="0" Grid.Column="0" Margin="5,5,1,5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <!-- Image of interest -->
+            <Label Grid.Row="0" Content="Image" ></Label>
+
+            <Grid Grid.Row="1" Margin="5,5,5,5" HorizontalAlignment="Stretch">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+
+                <Border BorderBrush="{StaticResource image_border}" BorderThickness="1,1,1,1" CornerRadius="1,1,1,1" RenderOptions.ClearTypeHint="Enabled" Margin="5,5,5,5">
+                    <Grid Name="CSearchImage" Grid.Column="0" Background="LightGray" AllowDrop="True" Drop="ImageDrop" MouseLeftButtonDown="ImageClick" ToolTip="Set image of  interest [alt+i|double click|drag/drop]">
+                        <Image Name="SearchImage" RenderOptions.BitmapScalingMode="HighQuality" MouseLeftButtonDown="ImageClick">
+                        </Image>
+                    </Grid>
+                </Border>
+
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <!-- Image Colors -->
+                    <Label Grid.Row="0" Content="Colors"></Label>
+
+                    <Grid Name="GImageColors" Grid.Row="1" Width="100" Height="10" HorizontalAlignment="Left" Margin="5,5,5,5">
+                        <Border BorderThickness="1" BorderBrush="#FF000000" VerticalAlignment="Top">
+                            <Image Name="ImageColors" Width="100" Height="10" RenderOptions.BitmapScalingMode="HighQuality" HorizontalAlignment="Left" />
+                        </Border>
+                    </Grid>
+
+                    <!-- Image RGB Histogram -->
+                    <Label  Grid.Row="2" Content="RGB histogram"></Label>
+                    <Grid Name="GImageHistogram" Grid.Row="3" Width="120" Height="60" HorizontalAlignment="Left" Margin="5,5,5,5">
+                        <Image Name="ImageHistogram" RenderOptions.BitmapScalingMode="HighQuality" Width="120" Height="60" HorizontalAlignment="Left" />
+                    </Grid>
+                    
+                </Grid>
+            </Grid>
+
+            <!-- Image folder -->
+            <Label Grid.Row="2" Content="Image Folder" ></Label>
+            <Grid Grid.Row="3" HorizontalAlignment="Stretch">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <TextBox Name="SearchFolder" Grid.Column="0" Margin="5,0,5,0"></TextBox>
+                <Button Grid.Column="1" Name="BImageFolder" Click="ImageFolderClick" ToolTip="Set image folder [alt+f]">
+
+                    <StackPanel Orientation="Horizontal" Margin="1">
+                        <Image Source="Resource/ico/Folder-Open.ico" Width="16" Height="16" Margin="5,0,0,0" RenderOptions.BitmapScalingMode="HighQuality" />
+                    </StackPanel>
+                </Button>
+            </Grid>
+
+            <!--
+            search options
+            -->
+
+            <GroupBox Grid.Row="4" Header="Search options">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0" Margin="5,5,5,5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Image Hash -->
+                        <Grid Grid.Column="0" Margin="0,0,3,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Label Content="Method" Grid.Row="0" HorizontalContentAlignment="Left"></Label>
+                            <ComboBox Name="CBMethod" Grid.Row="1" Width="Auto">
+                                <ComboBoxItem Name="IHAverage" Content="Average" IsSelected="True"></ComboBoxItem>
+                                <ComboBoxItem Name="IHAverageH" Content="Average + histogram"></ComboBoxItem>
+                                <ComboBoxItem Name="IHAverageC" Content="Average + main color"></ComboBoxItem>
+                                <ComboBoxItem Name="IHBlock" Content="Block" ></ComboBoxItem>
+                                <ComboBoxItem Name="IHBlockH" Content="Block + histogram" ></ComboBoxItem>
+                                <ComboBoxItem Name="IHBlockC" Content="Block + main color" ></ComboBoxItem>
+                                <ComboBoxItem Name="IHColor" Content="Color (main)"></ComboBoxItem>
+                                <ComboBoxItem Name="IHDifference" Content="Difference"></ComboBoxItem>
+                                <ComboBoxItem Name="IHDifferenceH" Content="Difference + histogram"></ComboBoxItem>
+                                <ComboBoxItem Name="IHDifferenceC" Content="Difference + main color"></ComboBoxItem>
+                                <ComboBoxItem Name="IHHistogram" Content="Histogram" ></ComboBoxItem>
+                                <ComboBoxItem Name="IHPerceptive" Content="Perceptive"></ComboBoxItem>
+                                <ComboBoxItem Name="IHPerceptiveH" Content="Perceptive + histogram"></ComboBoxItem>
+                                <ComboBoxItem Name="IHPerceptiveC" Content="Perceptive + main color"></ComboBoxItem>
+                            </ComboBox>
+                        </Grid>
+
+                        <!-- Color filter -->
+                        <Grid Grid.Column="1" Margin="0,0,3,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Label Content="Filter" Grid.Row="0" HorizontalContentAlignment="Left"></Label>
+                            <ComboBox Name="CBFilter" Grid.Row="1">
+                                <ComboBoxItem Name="IFNone" Content="None" ></ComboBoxItem>
+                                <ComboBoxItem Name="IFColor" Content="Color (main)"></ComboBoxItem>
+                                <ComboBoxItem Name="IFColors" Content="Colors (top 20)"></ComboBoxItem>
+                                <ComboBoxItem Name="IFDifference" Content="Pixels"></ComboBoxItem>
+                                <ComboBoxItem Name="IFSDifference" Content="Pixels (sorted)" IsSelected="True"></ComboBoxItem>
+                                <ComboBoxItem Name="IFDistance" Content="Pixels distance"></ComboBoxItem>
+                                <ComboBoxItem Name="IFSDistance" Content="Pixels distance (sorted)"></ComboBoxItem>
+                            </ComboBox>
+                        </Grid>
+                    </Grid>
+                    <Grid Grid.Row="1" Margin="5,0,5,5" HorizontalAlignment="Stretch">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition MinWidth="10" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <!-- similarity cutoff -->
+                        <Grid Grid.Column="0" Margin="0,0,3,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Label Content="Min. Similarity" Grid.Row="0" HorizontalContentAlignment="Left"></Label>
+                            <ComboBox Name="CBSimilarity" Grid.Row="1">
+                                <ComboBoxItem Name="S65" Content="65%" ></ComboBoxItem>
+                                <ComboBoxItem Name="S70" Content="70%" ></ComboBoxItem>
+                                <ComboBoxItem Name="S75" Content="75%" ></ComboBoxItem>
+                                <ComboBoxItem Name="S80" Content="80%" IsSelected="True"></ComboBoxItem>
+                                <ComboBoxItem Name="S85" Content="85%" ></ComboBoxItem>
+                                <ComboBoxItem Name="S90" Content="90%" ></ComboBoxItem>
+                                <ComboBoxItem Name="S95" Content="95%" ></ComboBoxItem>
+                                <ComboBoxItem Name="S100" Content="100%" ></ComboBoxItem>
+                            </ComboBox>
+                        </Grid>
+                        <!-- search button -->
+                        <Button Grid.Column="2" Name="BSearch" Click="SearchSimilar" Margin="10,10,10,0" HorizontalAlignment="Right" VerticalAlignment="Bottom" ToolTip="Search similar images [alt+s]">
+                            <StackPanel Orientation="Horizontal" Margin="1">
+                                <TextBlock RenderOptions.ClearTypeHint="Enabled">Search</TextBlock>
+                                <Image Source="Resource/ico/Search.ico" Width="16" Height="16" Margin="5,0,0,0" RenderOptions.BitmapScalingMode="HighQuality" />
+                            </StackPanel>
+                        </Button>
+                    </Grid>
+                    <Grid Grid.Row="2" Margin="5,5,5,5">
+                        <CheckBox Name="CheckRecreateIndex" Content="Re-create index"></CheckBox>
+                    </Grid>
+                </Grid>
+            </GroupBox>
+        </Grid>
+
+        <!--
+         Search results
+        -->
+        <Grid Grid.Row="0" Grid.Column="1" Margin="9,5,4.6,5">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="92*" />
+                    <RowDefinition Height="8*" />
+                </Grid.RowDefinitions>
+
+                <!-- Similar image list -->
+                <GroupBox Header="Similar Images" Grid.Row="0" HorizontalAlignment="Stretch" Margin="11,0,0,0" VerticalAlignment="Stretch">
+
+                    <ListView x:Name="SimilarImagesList" VirtualizingPanel.IsVirtualizing="True"
+                                  VirtualizingPanel.VirtualizationMode="Recycling"
+                                  ScrollViewer.CanContentScroll="True"
+                                   SelectionMode="Single"
+                                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                  HorizontalContentAlignment="Stretch"
+                                  MinWidth="180" MinHeight="310">
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+
+                                <WrapPanel  IsItemsHost="True" ItemHeight="160" ItemWidth="160" />
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition MinHeight="15" />
+                                    </Grid.RowDefinitions>
+
+                                    <!--Bind Image Path to control-->
+                                    <Border x:Name="borderSimilarImage" Grid.Row="0"
+                                            Width="140" Height="140"
+                                            HorizontalAlignment="Center" VerticalAlignment="Center" BorderBrush="{StaticResource image_border}"
+                                            BorderThickness="1" Padding="2" Margin="0" CornerRadius="10"
+                                            ContextMenuOpening="SimilarContextMenu_Open" Tag="{Binding ImagePath}"
+                                            Background="LightGray" Opacity="100">
+
+                                        <Border.ContextMenu>
+                                            <ContextMenu x:Name="menuImageDetail">
+                                                <MenuItem x:Name="menuOpenImage" Header="_Open with system viewer" Click="SimilarMenuOpenImage_Click" />
+                                                <MenuItem x:Name="menuSetAsSearchImage" Header="_Set as search image" Click="SimilarMenuSetAsSearchImage_Click" />
+                                            </ContextMenu>
+                                        </Border.ContextMenu>
+
+                                        <Image Width="Auto" Height="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" RenderOptions.BitmapScalingMode="HighQuality"  ToolTip="{Binding ImagePath}">
+                                            <Image.Source>
+                                                <BitmapImage UriSource="{Binding ImagePath, TargetNullValue={x:Null}}" DecodePixelWidth="200" CreateOptions="IgnoreColorProfile" />
+                                            </Image.Source>
+                                        </Image>
+                                    </Border>
+                                    <!-- Similarity % & colors -->
+                                    <Grid Grid.Row="1" HorizontalAlignment="Center">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="1*" />
+                                            <ColumnDefinition Width="5" />
+                                            <ColumnDefinition Width="3*" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0"  x:Name="Distance" Margin="1" Foreground="DarkBlue" Text="{Binding Distance, StringFormat=\{0\}%}" FontStyle="Normal" />
+                                        <Image Grid.Column="2" Source="{Binding Colors}" MaxWidth="60" Height="22" RenderOptions.BitmapScalingMode="HighQuality" />
+                                    </Grid>
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ListView>
+                </GroupBox>
+
+                <!-- Results navigation -->
+
+                <Grid Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Margin="10,0,5,0">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition MinWidth="15" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <Grid Grid.Column="0"  Margin="0,0,5,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <Button Grid.Column="0"  Margin="0,0,3,0"
+                                Name="BResultsFirst" Click="BResultsFirst_Click" Opacity="0.75">
+                                <StackPanel Orientation="Horizontal" Margin="1">
+                                    <Image Source="Resource/ico/Rewind.ico" Width="12" Height="12" Margin="0,0,0,0" RenderOptions.BitmapScalingMode="HighQuality" />
+                                </StackPanel>
+                            </Button>
+
+                            <Button Grid.Column="1"   Margin="0,0,3,0" ToolTip="Previous page [alt-left]"
+                               Name="BResultsPrev" Click="BResultsPrev_Click" Opacity="0.75">
+                                <StackPanel Orientation="Horizontal" Margin="1">
+                                    <Image Source="Resource/ico/Left-Arrow.ico" Width="12" Height="12" Margin="0,0,0,0" RenderOptions.BitmapScalingMode="HighQuality" />
+                                </StackPanel>
+                            </Button>
+
+                            <Label Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="5,0,5,0"
+                              Name="LResultsPageNumber"  MinWidth="5" MinHeight="15"  Content="   " />
+
+                            <Button Grid.Column="3"  Margin="0,0,3,0" ToolTip="Next page [alt+right]"
+                                Name="BResultsNext" Click="BResultsNext_Click" Opacity="0.75">
+                                <StackPanel Orientation="Horizontal" Margin="1">
+                                    <Image Source="Resource/ico/Right-Arrow.ico" Width="12" Height="12" Margin="0,0,0,0" RenderOptions.BitmapScalingMode="HighQuality" />
+                                </StackPanel>
+                            </Button>
+
+                            <Button Grid.Column="4"  Margin="0,0,3,0"
+                               Name="BResultsLast" Click="BResultsLast_Click" Opacity="0.75">
+                                <StackPanel Orientation="Horizontal" Margin="1">
+                                    <Image Source="Resource/ico/Fast_Forward.ico" Width="12" Height="12" Margin="0,0,0,0" RenderOptions.BitmapScalingMode="HighQuality" />
+                                </StackPanel>
+                            </Button>
+                        </Grid>
+
+                        <!-- Save button -->
+                        <Button Grid.Column="2" Name="BSave" Click="SaveImages" ToolTip="Save similar images [Ctrl+S]">
+                            <StackPanel Orientation="Horizontal" Margin="1">
+                                <TextBlock RenderOptions.ClearTypeHint="Enabled">Save</TextBlock>
+                                <Image Source="Resource/ico/Downloads.ico" Width="16" Height="16" Margin="5,0,0,0" RenderOptions.BitmapScalingMode="HighQuality" />
+                            </StackPanel>
+                        </Button>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Grid>
+
+        <!--
+         Status bar
+        -->
+
+        <StatusBar Grid.Row="1" Grid.ColumnSpan="2"
+                   Background="White" BorderBrush="LightGray"
+                   BorderThickness="1" Margin="0,0,0,0"
+                   HorizontalAlignment="Stretch">
+
+            <Label Name="SBStatusText" Content="Select image folder and image of interest"></Label>
+
+            <ProgressBar x:Name="SBProgressBar" Visibility="Hidden" IsIndeterminate="True" />
+        </StatusBar>
+    </Grid>
+</Window>
