@@ -166,13 +166,16 @@ namespace Images
             {
                 image_files = image_files.Except(index.ImageFilesIndexed()).ToList();
             }
-
+            image_files.Sort();
             var file_lists = Partition<string>(image_files, number_of_index);
 
             Parallel.For(0, number_of_index, i =>
             {
                 index_list[i].IndexImageFiles(dir, file_lists[i]);
             });
+
+            // read new index files
+            Parallel.ForEach(index_list, (index) => { index.LoadIndex(dir); });
 
             image_folder = dir;
 
@@ -243,8 +246,7 @@ namespace Images
 
             foreach (var images_found in similar_images_found)
             {
-                //matches = matches.Union(images_found).ToDictionary(k => k.Key, v => v.Value);
-		matches = matches.Concat(images_found).GroupBy(d => d.Key).ToDictionary (d => d.Key, d => d.First().Value);
+                matches = matches.Union(images_found).ToDictionary(k => k.Key, v => v.Value);
             }
 
             return matches;
