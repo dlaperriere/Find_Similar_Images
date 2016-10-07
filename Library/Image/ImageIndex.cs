@@ -241,7 +241,7 @@ namespace Images
                 //The file does not have a valid image format.
                 //-or- GDI+ does not support the pixel format of the file
 
-                System.Console.WriteLine("\n  exclude \"{0}\" from index (Error: {1})", image_name, e.Message);
+                System.Console.WriteLine("\n  exclude \"{0}\" from index (invalid image format: {1})", image_name, e.Message);
             }
             catch (Exception e)
             {
@@ -494,6 +494,11 @@ namespace Images
 
             IndexImageFiles(dir, image_files);
 
+            if (File.Exists(index_file))
+            {
+                LoadIndex(dir);
+            }
+
             GC.Collect(); // force GC to free memory
             GC.WaitForPendingFinalizers();
 
@@ -517,6 +522,7 @@ namespace Images
 
             string index_file = System.IO.Path.Combine(dir, index_filename);
 
+            image_files.Sort();
             Parallel.ForEach(image_files, image_name =>
             {
                 //foreach (var image_name in image_files)
@@ -981,19 +987,19 @@ namespace Images
             /// </summary>
             private static ulong count = 0;
 
-            private object _countlock = new object();
+            private static readonly object _countlock = new object();
 
             private ulong nextid()
             {
                 lock (_countlock)
                 {
                     count++;
-                    return count;
                 }
+                return count;
             }
 
             /// <summary>
-            ///  File name -> id, File name -> id
+            ///  File name -> id, id -> File name
             /// </summary>
             private ConcurrentDictionary<string, string> images = new ConcurrentDictionary<String, String>();
 
