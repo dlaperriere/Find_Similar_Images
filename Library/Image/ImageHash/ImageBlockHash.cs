@@ -113,23 +113,16 @@ namespace Images
             int block_height;
             int[] blocks;
 
+
             // use smaller image to speedup calculation (default 64x64)
             if (image.Width != 8 * bits || image.Height != 8 * bits)
             {
-                var simage = image.Clone();
                 var smaller = new OpenCvSharp.Size(8 * bits, 8 * bits);
-                simage = simage.Resize(smaller, 0, 0, InterpolationFlags.Linear);
+                var simage = image.Resize(smaller, 0, 0, InterpolationFlags.Linear);
                 simage.CopyTo(image);
+                simage.Dispose();
             }
 
-            if (image.Channels() == 4)
-            {
-                Cv2.CvtColor(image, image, ColorConversionCodes.BGRA2BGR);
-            }
-            /*
-            Cv2.CvtColor(image, image, ColorConversionCodes.BGR2GRAY);
-            image.EqualizeHist();
-            */
 
             var image_byte3 = new MatOfByte3(image);
             var indexer = image_byte3.GetIndexer();
