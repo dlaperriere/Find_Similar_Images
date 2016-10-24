@@ -136,21 +136,6 @@
     <Compile Include="Library\Image\ImageHash\ImageHistogramHash.cs" />
     <Compile Include="Library\Image\ImageHash\SSIM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Test\TestAverageHash.cs" />
-    <Compile Include="Test\TestBKTree.cs" />
-    <Compile Include="Test\TestBKTreeImages.cs" />
-    <Compile Include="Test\TestBlockHash.cs" />
-    <Compile Include="Test\TestColorExtract.cs" />
-    <Compile Include="Test\TestColorHash.cs" />
-    <Compile Include="Test\TestImageSimilarity.cs" />
-    <Compile Include="Test\TestDifferenceHash.cs" />
-    <Compile Include="Test\TestHistogramHash.cs" />
-    <Compile Include="Test\TestImageUtils.cs" />
-    <Compile Include="Test\TestIndex.cs" />
-    <Compile Include="Test\TestIndexMulti.cs" />
-    <Compile Include="Test\TestMathUtils.cs" />
-    <Compile Include="Test\TestMD5Hash.cs" />
-    <Compile Include="Test\TestPHash.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Compare2Images\Compare2ImagesForm.resx">
@@ -160,19 +145,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="FindSimilarImage\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Test\images\220px-Odd-eyed_cat_by_ihasb33r-2.gif" />
-    <Content Include="Test\images\220px-Odd-eyed_cat_by_ihasb33r.jpg" />
-    <Content Include="Test\images\another_koala.jpg" />
-    <Content Include="Test\images\CorruptImage.jpg" />
-    <Content Include="Test\images\koala1.gray.jpg" />
-    <Content Include="Test\images\koala1.jpg" />
-    <Content Include="Test\images\koala2.jpg" />
-    <Content Include="Test\images\lena.jpg" />
-    <Content Include="Test\images\lena.smaller.jpg" />
-    <Content Include="Test\images\Symcamera1.jpg" />
-    <Content Include="Test\images\wrong.txt.bmp" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
