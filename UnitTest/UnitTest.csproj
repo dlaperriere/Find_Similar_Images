@@ -1,0 +1,208 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\OpenCvSharp3-AnyCPU.3.0.0.20150919\build\OpenCvSharp3-AnyCPU.props" Condition="Exists('..\packages\OpenCvSharp3-AnyCPU.3.0.0.20150919\build\OpenCvSharp3-AnyCPU.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{564E25BB-7B10-4069-A5BA-1018EE0D31C0}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>UnitTest</RootNamespace>
+    <AssemblyName>UnitTest</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <ReferencePath>$(ProgramFiles)\Common Files\microsoft shared\VSTT\$(VisualStudioVersion)\UITestExtensionPackages</ReferencePath>
+    <IsCodedUITest>False</IsCodedUITest>
+    <TestProjectType>UnitTest</TestProjectType>
+    <NuGetPackageImportStamp>a6932a10</NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="OpenCvSharp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6adad1e807fea099, processorArchitecture=MSIL">
+      <HintPath>..\packages\OpenCvSharp3-AnyCPU.3.0.0.20150919\lib\net45\OpenCvSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="OpenCvSharp.Blob, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6adad1e807fea099, processorArchitecture=MSIL">
+      <HintPath>..\packages\OpenCvSharp3-AnyCPU.3.0.0.20150919\lib\net45\OpenCvSharp.Blob.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="OpenCvSharp.Extensions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6adad1e807fea099, processorArchitecture=MSIL">
+      <HintPath>..\packages\OpenCvSharp3-AnyCPU.3.0.0.20150919\lib\net45\OpenCvSharp.Extensions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="OpenCvSharp.UserInterface, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6adad1e807fea099, processorArchitecture=MSIL">
+      <HintPath>..\packages\OpenCvSharp3-AnyCPU.3.0.0.20150919\lib\net45\OpenCvSharp.UserInterface.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="System" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <Choose>
+    <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
+      <ItemGroup>
+        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+      </ItemGroup>
+    </When>
+    <Otherwise>
+      <ItemGroup>
+        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework" />
+      </ItemGroup>
+    </Otherwise>
+  </Choose>
+  <ItemGroup>
+    <Compile Include="..\Library\CommonUtils\BinaryFile.cs">
+      <Link>BinaryFile.cs</Link>
+    </Compile>
+    <Compile Include="..\Library\CommonUtils\BitCounter.cs">
+      <Link>BitCounter.cs</Link>
+    </Compile>
+    <Compile Include="..\Library\CommonUtils\ColorUtils.cs">
+      <Link>ColorUtils.cs</Link>
+    </Compile>
+    <Compile Include="..\Library\CommonUtils\DctMethods.cs">
+      <Link>DctMethods.cs</Link>
+    </Compile>
+    <Compile Include="..\Library\CommonUtils\DiscreteCosineTransform.cs">
+      <Link>DiscreteCosineTransform.cs</Link>
+    </Compile>
+    <Compile Include="..\Library\CommonUtils\ImageUtils.cs">
+      <Link>ImageUtils.cs</Link>
+    </Compile>
+    <Compile Include="..\Library\CommonUtils\MathUtils.cs">
+      <Link>MathUtils.cs</Link>
+    </Compile>
+    <Compile Include="..\Library\CommonUtils\StringUtils.cs">
+      <Link>StringUtils.cs</Link>
+    </Compile>
+    <Compile Include="..\Library\DataStructure\BKTree.cs">
+      <Link>BKTree.cs</Link>
+    </Compile>
+    <Compile Include="..\Library\DataStructure\BKTreeImage.cs">
+      <Link>BKTreeImage.cs</Link>
+    </Compile>
+    <Compile Include="..\Library\Image\ColorExtract.cs">
+      <Link>ColorExtract.cs</Link>
+    </Compile>
+    <Compile Include="..\Library\Image\IImageIndex.cs">
+      <Link>IImageIndex.cs</Link>
+    </Compile>
+    <Compile Include="..\Library\Image\ImageHash.cs">
+      <Link>ImageHash.cs</Link>
+    </Compile>
+    <Compile Include="..\Library\Image\ImageHash\ImageAverageHash.cs">
+      <Link>ImageAverageHash.cs</Link>
+    </Compile>
+    <Compile Include="..\Library\Image\ImageHash\ImageBlockHash.cs">
+      <Link>ImageBlockHash.cs</Link>
+    </Compile>
+    <Compile Include="..\Library\Image\ImageHash\ImageColorHash.cs">
+      <Link>ImageColorHash.cs</Link>
+    </Compile>
+    <Compile Include="..\Library\Image\ImageHash\ImageDifferenceHash.cs">
+      <Link>ImageDifferenceHash.cs</Link>
+    </Compile>
+    <Compile Include="..\Library\Image\ImageHash\ImageHistogramHash.cs">
+      <Link>ImageHistogramHash.cs</Link>
+    </Compile>
+    <Compile Include="..\Library\Image\ImageHash\ImageMD5Hash.cs">
+      <Link>ImageMD5Hash.cs</Link>
+    </Compile>
+    <Compile Include="..\Library\Image\ImageHash\ImagePHash.cs">
+      <Link>ImagePHash.cs</Link>
+    </Compile>
+    <Compile Include="..\Library\Image\ImageHistogram.cs">
+      <Link>ImageHistogram.cs</Link>
+    </Compile>
+    <Compile Include="..\Library\Image\ImageIndex.cs">
+      <Link>ImageIndex.cs</Link>
+    </Compile>
+    <Compile Include="..\Library\Image\ImageIndexMulti.cs">
+      <Link>ImageIndexMulti.cs</Link>
+    </Compile>
+    <Compile Include="..\Library\Image\ImageSimilarity.cs">
+      <Link>ImageSimilarity.cs</Link>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestAverageHash.cs" />
+    <Compile Include="TestBKTree.cs" />
+    <Compile Include="TestBKTreeImages.cs" />
+    <Compile Include="TestBlockHash.cs" />
+    <Compile Include="TestColorExtract.cs" />
+    <Compile Include="TestColorHash.cs" />
+    <Compile Include="TestDifferenceHash.cs" />
+    <Compile Include="TestHistogramHash.cs" />
+    <Compile Include="TestImageSimilarity.cs" />
+    <Compile Include="TestImageUtils.cs" />
+    <Compile Include="TestIndex.cs" />
+    <Compile Include="TestIndexMulti.cs" />
+    <Compile Include="TestMathUtils.cs" />
+    <Compile Include="TestMD5Hash.cs" />
+    <Compile Include="TestPHash.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Choose>
+    <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
+      <ItemGroup>
+        <Reference Include="Microsoft.VisualStudio.QualityTools.CodedUITestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+        <Reference Include="Microsoft.VisualStudio.TestTools.UITest.Common, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+        <Reference Include="Microsoft.VisualStudio.TestTools.UITest.Extension, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+        <Reference Include="Microsoft.VisualStudio.TestTools.UITesting, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\OpenCvSharp3-AnyCPU.3.0.0.20150919\build\OpenCvSharp3-AnyCPU.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\OpenCvSharp3-AnyCPU.3.0.0.20150919\build\OpenCvSharp3-AnyCPU.props'))" />
+  </Target>
+  <PropertyGroup>
+    <PreBuildEvent>taskkill /F /IM vstest.executionengine.x86.exe /FI "MEMUSAGE gt 1"
+taskkill /F /IM vstest.executionengine.exe /FI "MEMUSAGE gt 1"
+</PreBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
